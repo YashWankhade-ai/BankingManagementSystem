@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Transactions — NovaBank{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+            <h2 style="font-size: 1.5rem; font-weight: 700;">Account Statement</h2>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Account Number: {{ account.account_number }}</p>
+        </div>
+
+        <form method="GET" action="/transactions" style="display: flex; gap: 0.5rem;">
+            <input class="form-control" type="text" name="q" value="{{ query }}" placeholder="Search description..." style="width: 220px; padding: 0.5rem 0.75rem;">
+            <button type="submit" class="btn btn-secondary btn-sm">Filter</button>
+            {% if query %}
+                <a href="/transactions" class="btn btn-secondary btn-sm">Clear</a>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if transactions %}
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Date & Time</th>
+                        <th>Amount</th>
+                        <th>Balance After</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tx in transactions %}
+                        <tr>
+                            <td style="color: var(--text-muted);">#{{ tx.id }}</td>
+                            <td>
+                                <span class="badge {{ 'active' if tx.type == 'DEPOSIT' else 'frozen' }}">
+                                    {{ tx.type }}
+                                </span>
+                            </td>
+                            <td>{{ tx.description or '—' }}</td>
+                            <td style="color: var(--text-muted); font-size: 0.85rem;">{{ tx.created_at }}</td>
+                            <td style="font-weight: 700; color: {{ '#34d399' if tx.type == 'DEPOSIT' else '#f87171' }};">
+                                {{ '+' if tx.type == 'DEPOSIT' else '-' }}₹{{ "{:,.2f}".format(tx.amount) }}
+                            </td>
+                            <td>₹{{ "{:,.2f}".format(tx.balance_after) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p style="color: var(--text-muted); text-align: center; padding: 2.5rem 0;">No matching transactions found.</p>
+    {% endif %}
+</div>
+{% endblock %}

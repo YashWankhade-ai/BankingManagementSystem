@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In — NovaBank{% endblock %}
+
+{% block content %}
+<div style="max-width: 440px; margin: 2rem auto;">
+    <div class="card">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Customer Sign In</h2>
+        <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.75rem;">Access your personal banking account.</p>
+
+        <form method="POST" action="/login">
+            <div class="form-group">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="username" placeholder="e.g. ketan varma" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+                Sign In
+            </button>
+        </form>
+
+        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.875rem; text-align: center; color: var(--text-muted);">
+            Don't have an account? <a href="/register" style="color: var(--accent); font-weight: 600; text-decoration: none;">Open one now</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

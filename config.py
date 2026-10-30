@@ -7,6 +7,9 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
+IS_VERCEL = bool(os.environ.get("VERCEL"))
+DATA_DIR = Path("/tmp") if IS_VERCEL else (BASE_DIR / "database")
+LOG_DIR_PATH = Path("/tmp/logs") if IS_VERCEL else (BASE_DIR / "logs")
 
 
 @dataclass(frozen=True)
@@ -17,12 +20,12 @@ class AppConfig:
     APP_VERSION: str = "1.0.0"
 
     # Database
-    DB_PATH: str = str(BASE_DIR / "database" / "banking.db")
+    DB_PATH: str = str(DATA_DIR / "banking.db")
     SCHEMA_PATH: str = str(BASE_DIR / "database" / "schema.sql")
 
     # Logging
-    LOG_DIR: str = str(BASE_DIR / "logs")
-    LOG_FILE: str = str(BASE_DIR / "logs" / "app.log")
+    LOG_DIR: str = str(LOG_DIR_PATH)
+    LOG_FILE: str = str(LOG_DIR_PATH / "app.log")
 
     # Security
     BCRYPT_ROUNDS: int = 12

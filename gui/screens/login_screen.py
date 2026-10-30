@@ -79,7 +79,7 @@ class LoginScreen(ctk.CTkFrame):
 
         form = FormGroup(inner)
         form.pack(fill="x")
-        self._username = LabeledEntry(form, "Username", placeholder="e.g. jane.doe")
+        self._username = LabeledEntry(form, "Username", placeholder="e.g. ketan varma")
         self._password = LabeledEntry(form, "Password", placeholder="••••••••", show="•")
         form.add(self._username)
         form.add(self._password)

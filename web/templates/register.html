@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Open Account — NovaBank{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 1rem auto;">
+    <div class="card">
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">Open a Bank Account</h2>
+        <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.75rem;">Join NovaBank in minutes. Fill out your details below.</p>
+
+        <form method="POST" action="/register">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label class="form-label" for="full_name">Full Legal Name</label>
+                    <input class="form-control" type="text" id="full_name" name="full_name" placeholder="John Doe" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="dob">Date of Birth (YYYY-MM-DD)</label>
+                    <input class="form-control" type="text" id="dob" name="dob" placeholder="1995-05-20" required>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label class="form-label" for="mobile">Mobile Number (10 digits)</label>
+                    <input class="form-control" type="tel" id="mobile" name="mobile" placeholder="9876543210" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="initial_deposit">Initial Deposit (₹)</label>
+                    <input class="form-control" type="number" step="0.01" min="0" id="initial_deposit" name="initial_deposit" value="500.00" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="address">Residential Address</label>
+                <input class="form-control" type="text" id="address" name="address" placeholder="123 Main Street, City, State" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="username">Choose Username</label>
+                <input class="form-control" type="text" id="username" name="username" placeholder="john.doe" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label class="form-label" for="password">Password (min 8 chars, 1 digit)</label>
+                    <input class="form-control" type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="pin">ATM / Security PIN (4 digits)</label>
+                    <input class="form-control" type="password" maxlength="4" pattern="\d{4}" id="pin" name="pin" placeholder="1234" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.75rem; padding: 0.85rem;">
+                Create Account
+            </button>
+        </form>
+
+        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.875rem; text-align: center; color: var(--text-muted);">
+            Already have an account? <a href="/login" style="color: var(--accent); font-weight: 600; text-decoration: none;">Sign in here</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

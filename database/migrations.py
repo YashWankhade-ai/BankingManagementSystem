@@ -13,6 +13,13 @@ logger = get_logger(__name__)
 
 def run_migrations() -> None:
     """Create tables and seed default admin if missing."""
+    import shutil
+    db_file = Path(CONFIG.DB_PATH)
+    if not db_file.exists():
+        src = Path(CONFIG.SCHEMA_PATH).parent / "banking.db"
+        if src.exists() and src.resolve() != db_file.resolve():
+            shutil.copy2(src, db_file)
+
     schema = Path(CONFIG.SCHEMA_PATH).read_text(encoding="utf-8")
     db = Database.instance()
     # executescript manages its own transactions; do not wrap.
